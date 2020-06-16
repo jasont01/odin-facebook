@@ -5,3 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+10.times do
+  u = User.create(:username => Faker::Internet.username, :email => Faker::Internet.email)
+  u.posts.create(:content => Faker::Lorem.paragraph(sentence_count: rand(1..5)))
+end

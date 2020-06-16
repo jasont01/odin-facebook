@@ -16,7 +16,8 @@ ActiveRecord::Schema.define(version: 2020_06_16_160734) do
   enable_extension "plpgsql"
 
   create_table "comments", force: :cascade do |t|
-    t.integer "user_id"
+    t.integer "author_id"
+    t.integer "post_id"
     t.text "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -38,6 +39,7 @@ ActiveRecord::Schema.define(version: 2020_06_16_160734) do
 
   create_table "friends", force: :cascade do |t|
     t.integer "user_id"
+    t.integer "friend_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -70,7 +72,7 @@ ActiveRecord::Schema.define(version: 2020_06_16_160734) do
   end
 
   create_table "posts", force: :cascade do |t|
-    t.integer "user_id"
+    t.integer "author_id"
     t.text "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

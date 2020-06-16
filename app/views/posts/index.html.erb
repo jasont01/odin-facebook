@@ -1,0 +1,9 @@
+<% @posts.each do |post| %>
+  <%= post.author.username %><br>
+  <%= post.content %>
+  Likes: <%= post.likes.count %>
+  <% post.comments.each do |comment| %>
+    <%= comment.author.username %>
+    <%= comment.content %>
+  <% end %>
+<% end %>
