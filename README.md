@@ -22,8 +22,12 @@ This is the final project from the Ruby on Rails course in The Odin Project's cu
 The goal of this project is to utilize everything you've learned so far in the course to build a fully functioning Ruby on Rails app.<br />
 A link to the full description of the assignment can be found above.
 
-<h4>Gems Used</h4>
+## Gems Used
 
 * <a href="https://rubygems.org/gems/bootstrap">Bootstrap</a> - CSS framwork
 * <a href="https://rubygems.org/gems/devise">Devise</a> - Authentication
 * <a href="https://rubygems.org/gems/faker">Faker</a> - Generate fake data
+
+## Model Relationship Diagram
+
+<p><a href="erd.pdf">View PDF</a></p>
