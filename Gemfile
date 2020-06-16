@@ -42,6 +42,8 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   # Display sent emails in browser instead of sending
   gem 'letter_opener', '~> 1.7'
+  # Entity-Relationship Diagrams
+  gem 'rails-erd'
 end
 
 group :test do
