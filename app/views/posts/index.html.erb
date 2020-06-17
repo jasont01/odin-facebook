@@ -1,9 +1,29 @@
-<% @posts.each do |post| %>
-  <%= post.author.username %><br>
-  <%= post.content %>
-  Likes: <%= post.likes.count %>
-  <% post.comments.each do |comment| %>
-    <%= comment.author.username %>
-    <%= comment.content %>
-  <% end %>
-<% end %>
+<div class="row">
+
+  <div class="col-2">
+    <p>sidebar</p>
+    <p>bio</p>
+    <p>???</p>
+  </div>
+
+  <div class="col-6 mx-5">
+
+    <section class="p-4">
+      <%= form_with model: @new_post, mothod: 'POST' do |f| %>
+        <%= f.text_area :content, class: 'form-control', placeholder: 'Post something...' %>
+        <%= f.submit "Post", class: 'btn btn-primary mt-3' %>
+      <% end %>
+    </section>
+
+    <section>
+      <%= render partial: 'feed' %>
+    </section>
+
+  </div>
+
+  <div class="col-2">
+    <p>right-sidebar</p>
+    <p>stuff goes here</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, esse velit corrupti quisquam debitis nostrum, reiciendis mollitia provident nobis officia facilis vitae nihil voluptas deserunt perferendis quibusdam consequatur odio? Unde.</p>
+  </div>
+</div>

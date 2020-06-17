@@ -1,0 +1,24 @@
+
+<% @posts.each do |post| %>
+
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">
+        <%= post.author.username %>
+      </h5>
+      <h6 class="card-subtitle mb-2 text-muted">
+      <%= distance_of_time_in_words(post.created_at, Time.now) %> ago
+      </h6>
+      <p class="card-text">
+        <%= post.content %>
+      </p>
+      <p>Likes: <%= post.likes.count %></p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <%= render partial: 'comment', collection: post.comments %>
+    </ul>
+  </div>
+
+
+  <%# TODO add write a comment field %>
+<% end %>

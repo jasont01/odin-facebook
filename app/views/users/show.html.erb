@@ -1,0 +1,20 @@
+<%= @user.username %><br>
+<%= @user.email %><br>
+<%= @user.profile.name %>
+<%= @user.profile.birthday %>
+<%= @user.profile.location.city %>
+<%= @user.profile.hometown.city %>
+<%= @user.profile.relationship_status %>
+<%= @user.profile.employers %>
+<%= @user.profile.bio %>
+
+
+<% @user.posts.each do |post| %>
+  <%= post.author.username %><br>
+  <%= post.content %>
+  Likes: <%= post.likes.count %>
+  <% post.comments.each do |comment| %>
+    <%= comment.author.username %>
+    <%= comment.content %>
+  <% end %>
+<% end %>
