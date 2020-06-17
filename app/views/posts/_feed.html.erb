@@ -4,7 +4,12 @@
   <div class="card">
     <div class="card-body">
       <h5 class="card-title">
-        <%= post.author.username %>
+        <% if post.author.image.nil? %>
+          <%= gravatar_image_tag(post.author.email, :gravatar => { :size => 50, :default => 'https://comotion.uw.edu/wp-content/uploads/2019/05/generic-profile.png' }) %>
+        <% else %>
+          <%= image_tag(post.author.image) %>
+        <% end %>
+        <%= post.author.name %>
       </h5>
       <h6 class="card-subtitle mb-2 text-muted">
       <%= distance_of_time_in_words(post.created_at, Time.now) %> ago

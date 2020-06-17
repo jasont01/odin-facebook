@@ -3,7 +3,7 @@ class PostsController < ApplicationController
 
   def index
     #TODO limit to only posts by user and their friends
-    @posts = Post.all
+    @posts = Post.all.order(created_at: :desc)
     @new_post = Post.new
   end
 
