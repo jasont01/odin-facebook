@@ -62,6 +62,11 @@ gem 'bootstrap', '~> 4.5'
 
 # Authentication
 gem 'devise', '~> 4.7', '>= 4.7.2'
+gem 'omniauth-facebook'
+gem 'figaro'
+
+# Gravatar
+gem 'gravatar_image_tag'
 
 # Generate fake info
 gem 'faker', '~> 2.12'
