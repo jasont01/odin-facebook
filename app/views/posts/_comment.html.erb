@@ -1,5 +1,12 @@
 <li class="list-group-item">
-  <p><%= comment.author.username %></p>
-  <p><%= comment.content %></p>
-  <p><%= distance_of_time_in_words(comment.created_at, Time.now) %> ago</p>
+  <div class="row">
+    <div class="col-1">
+      <%= image_tag(comment.author.image, size: '36') %>
+    </div>
+    <div class="col">
+      <small><p class="text-muted"><%= comment.author.name %><br/>
+      <%= distance_of_time_in_words(comment.created_at, Time.now) %> ago</small></p>
+    </div>
+  </div>
+  <div class="pl-5"><%= comment.content %></div>
 </li>
