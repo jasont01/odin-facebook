@@ -1,4 +1,5 @@
 class FriendsController < ApplicationController
+  before_action :authenticate_user!
 
   def new_request
     request = FriendRequest.new(:user_id => params[:user_id], :requesting_user_id => current_user.id)
