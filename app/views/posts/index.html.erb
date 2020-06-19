@@ -1,12 +1,22 @@
 <div class="row">
 
-  <div class="col-2">
-    <p>sidebar</p>
-    <p>bio</p>
-    <p>???</p>
+  <div class="col-3 pt-5">
+
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        <%= image_tag(current_user.image, size: '30') %>
+        <%= current_user.name %>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center active">Home</li>
+      <li class="list-group-item d-flex justify-content-between align-items-center"><%= link_to "Profile", current_user %></li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <%= link_to "Friends", current_user %><span class="badge badge-primary badge-pill"><%= current_user.friends.count %></span>
+      </li>
+    </ul>
+    
   </div>
 
-  <div class="col-6 mx-5">
+  <div class="col-6 mx-4">
 
     <section class="p-4">
       <%= form_with model: @new_post, mothod: 'POST' do |f| %>
@@ -16,14 +26,22 @@
     </section>
 
     <section>
-      <%= render partial: 'feed' %>
+      <%= render partial: 'feed', collection: @posts, as: :post %>
     </section>
 
   </div>
 
-  <div class="col-2">
-    <p>right-sidebar</p>
-    <p>stuff goes here</p>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, esse velit corrupti quisquam debitis nostrum, reiciendis mollitia provident nobis officia facilis vitae nihil voluptas deserunt perferendis quibusdam consequatur odio? Unde.</p>
+  <div class="col pt-5">
+    <h5>Suggested Friends:</h5>
+
+    <% @suggested_friends.each do |suggestion| %>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <%= image_tag(suggestion.image, size: '40') %>
+          <%= link_to suggestion.name, user_path(suggestion) %>
+          <%= link_to "Add Friend", nil, class: 'btn btn-primary btn-sm' %>
+        </li>
+      </ul>
+    <% end %>
   </div>
 </div>

@@ -1,5 +1,9 @@
+<%#TODO 4. Users can send Friend Requests to other Users.%>
+<%#TODO 5. A User must accept the Friend Request to become friends.%>
+<%#TODO 14. The Users Index page lists all users and buttons for sending Friend Requests to 
+            those who are not already friends or who don’t already have a pending request.%>
 <% @users.each do |user| %>
-<%= user.username %><br>
+<%= user.name %><br>
 <%= user.email %><br>
 <% end %>
 <br>

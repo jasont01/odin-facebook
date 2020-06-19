@@ -1,61 +1,53 @@
+<div class="card mb-4">
+  <div class="card-body">
 
-<% @posts.each do |post| %>
-
-  <div class="card mb-4">
-    <div class="card-body">
-
-      <div class="row mb-3">
-        <div class="col-1 mr-3">
-          <%#= gravatar_image_tag(post.author.email, :gravatar => { :size => 50, :default => 'https://comotion.uw.edu/wp-content/uploads/2019/05/generic-profile.png' }) %>
-          <%= image_tag(post.author.image, size: '50') %>
-        </div>
-        <div class="col">
-          <h5>
-            <%# TODO link name to user's posts/profile %>
-            <%= post.author.name %><br/>
-          </h5>
-          <h6 class="card-subtitle text-muted">
-            <small><%= distance_of_time_in_words(post.created_at, Time.now) %> ago</small>
-          </h6>
-        </div>
-      </div>
-
-      <p class="card-text">
-        <%= post.content %>
-      </p>
-      <p class="text-muted">
-        <small>
-          <span><i class="far fa-thumbs-up"></i> <%= post.likes.count %></span>
-          <span style="float: right;"><%= post.comments.count %> Comments</span>
-        </small>
-      </p>
-      <%# TODO add functionality for like buttons - JS? %>
-      <% if user_signed_in? %>
-        <% if post.likes.find_by(:user_id => current_user.id) %>
-          <button class="btn btn-primary btn-sm"><i class="fas fa-thumbs-up"></i> Liked</button>
-        <% else %>
-          <button class="btn btn-outline-primary btn-sm"><i class="fas fa-thumbs-up"></i> Like</button>
-        <% end %>
-      <% end %>
-    </div>
-
-  <%# Comments %>
-    <ul class="list-group list-group-flush">
-      <%= render partial: 'comment', collection: post.comments %>
-    </ul>
-
-  <%# Leave a comment %>
-    <div class="row">
-      <div class="col-1">
-        <%= image_tag(post.author.image, size: '36') %>
+    <div class="row mb-3">
+      <div class="col-1 mr-3">
+        <%#= gravatar_image_tag(post.author.email, :gravatar => { :size => 50, :default => 'https://comotion.uw.edu/wp-content/uploads/2019/05/generic-profile.png' }) %>
+        <%= image_tag(post.author.image, size: '50') %>
       </div>
       <div class="col">
-        <%= form_with mothod: 'POST', class: 'form-inline' do |f| %>
-          <%= f.text_field :content, class: 'form-control mr-2', style: 'width: 75%', placeholder: 'Leave a comment...' %>
-          <%= f.submit "Comment", class: 'btn btn-primary btn-sm' %>
-        <% end %>
+        <h5>
+          <%= link_to post.author.name, user_path(post.author) %><br/>
+        </h5>
+        <h6 class="card-subtitle text-muted">
+          <small><%= distance_of_time_in_words(post.created_at, Time.now) %> ago</small>
+        </h6>
       </div>
     </div>
+
+    <p class="card-text">
+      <%= post.content %>
+    </p>
+    <p class="text-muted">
+      <small>
+        <span><i class="far fa-thumbs-up"></i> <%= post.likes.count %></span>
+        <span style="float: right;"><%= post.comments.count %> Comments</span>
+      </small>
+    </p>
+    <%# TODO add functionality for like buttons - JS? %>
+    <% if post.likes.find_by(:user_id => current_user.id) %>
+      <button class="btn btn-primary btn-sm"><i class="fas fa-thumbs-up"></i> Liked</button>
+    <% else %>
+      <button class="btn btn-outline-primary btn-sm"><i class="fas fa-thumbs-up"></i> Like</button>
+    <% end %>
   </div>
 
-<% end %>
+<%# Comments %>
+  <ul class="list-group list-group-flush">
+    <%= render partial: 'posts/comment', collection: post.comments %>
+  </ul>
+
+<%# Leave a comment %>
+  <div class="row">
+    <div class="col-1">
+      <%= image_tag(current_user.image, size: '36') %>
+    </div>
+    <div class="col">
+      <%= form_with mothod: 'POST', class: 'form-inline' do |f| %>
+        <%= f.text_field :content, class: 'form-control mr-2', style: 'width: 75%', placeholder: 'Leave a comment...' %>
+        <%= f.submit "Comment", class: 'btn btn-primary btn-sm' %>
+      <% end %>
+    </div>
+  </div>
+</div>

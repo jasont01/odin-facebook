@@ -1,20 +1,62 @@
-<%= @user.username %><br>
-<%= @user.email %><br>
-<%= @user.profile.name %>
-<%= @user.profile.birthday %>
-<%= @user.profile.location.city %>
-<%= @user.profile.hometown.city %>
-<%= @user.profile.relationship_status %>
-<%= @user.profile.employers %>
-<%= @user.profile.bio %>
+<div class="row">
+  <div class="col-4">
 
 
-<% @user.posts.each do |post| %>
-  <%= post.author.username %><br>
-  <%= post.content %>
-  Likes: <%= post.likes.count %>
-  <% post.comments.each do |comment| %>
-    <%= comment.author.username %>
-    <%= comment.content %>
-  <% end %>
-<% end %>
+<div class="row mb-3">
+      <div class="col-3">
+        <%= image_tag(@user.image, size: '80') %>
+      </div>
+      <div class="col">
+        <h2>Profile</h2>
+        <%= link_to "Edit", edit_user_path(@user), class: 'btn btn-info btn-sm' %>
+      </div>
+    </div>
+
+
+
+
+    <table class="table table-borderless">
+      <tbody>
+        <tr>
+          <td class="profile_tag">Name:</td>
+          <td><%= @user.name %></td>
+        </tr>
+        <tr>
+          <td class="profile_tag">Email:</td>
+          <td><%= @user.email %></td>
+        </tr>
+        <% if !@user.profile.nil? %>
+        <tr>
+          <td class="profile_tag">Birthday:</td>
+          <td><%= @user.profile.birthday %></td>
+        </tr>
+        <tr>
+          <td class="profile_tag">Location:</td>
+          <td><%= @user.profile.location %></td>
+        </tr>
+        <tr>
+          <td class="profile_tag">Hometown:</td>
+          <td><%= @user.profile.hometown %></td>
+        </tr>
+        <tr>
+          <td class="profile_tag">Relationship<br>Status:</td>
+          <td><%= @user.profile.relationship_status %></td>
+        </tr>
+        <tr>
+          <td class="profile_tag">Bio:</td>
+          <td><%= @user.profile.bio %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+  </div>
+
+  <div class="col mx-5">
+
+    <section>
+      <%= render partial: 'posts/feed', collection: @user.posts, as: :post %>
+    </section>
+    
+  </div>
+</div>

@@ -3,10 +3,12 @@
     <div class="col-1">
       <%= image_tag(comment.author.image, size: '36') %>
     </div>
-    <div class="col">
-      <small><p class="text-muted"><%= comment.author.name %><br/>
+    <div class="col-4">
+      <small><p class="text-muted"><%= link_to comment.author.name, user_path(comment.author) %><br/>
       <%= distance_of_time_in_words(comment.created_at, Time.now) %> ago</small></p>
     </div>
+    <div class="col">
+      <%= comment.content %>
+    </div>
   </div>
-  <div class="pl-5"><%= comment.content %></div>
 </li>

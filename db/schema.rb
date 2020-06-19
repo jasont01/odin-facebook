@@ -23,13 +23,6 @@ ActiveRecord::Schema.define(version: 2020_06_17_182708) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "employers", force: :cascade do |t|
-    t.string "company_name"
-    t.integer "location_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "friend_requests", force: :cascade do |t|
     t.integer "user_id"
     t.integer "requesting_user_id"
@@ -44,22 +37,9 @@ ActiveRecord::Schema.define(version: 2020_06_17_182708) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "jobs", force: :cascade do |t|
-    t.integer "employer_id"
-    t.string "job_title"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "likes", force: :cascade do |t|
     t.integer "user_id"
     t.integer "post_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "locations", force: :cascade do |t|
-    t.string "city"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -80,22 +60,18 @@ ActiveRecord::Schema.define(version: 2020_06_17_182708) do
 
   create_table "profiles", force: :cascade do |t|
     t.integer "user_id"
-    t.string "name"
     t.date "birthday"
-    t.integer "profile_picture_id"
     t.text "bio"
     t.string "relationship_status"
-    t.integer "significant_other_id"
-    t.integer "location_id"
-    t.integer "hometown_id"
-    t.integer "job_id"
+    t.string "location"
+    t.string "hometown"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
-    t.string "image", default: "images/profile_default.png", null: false
+    t.string "image", default: "profile_default.png", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "email", default: "", null: false
