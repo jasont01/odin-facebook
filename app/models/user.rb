@@ -22,7 +22,7 @@ class User < ApplicationRecord
   end
 
   private
-
+#FIXME email called on signout
   def welcome_email
     WelcomeMailer.welcome_email(self).deliver_now
   end

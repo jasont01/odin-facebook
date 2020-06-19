@@ -33,10 +33,23 @@ class PostsController < ApplicationController
     @post.save ? flash[:notice] = "Post successfully created" : flash[:alert] = "Something went wrong"
     redirect_to posts_path
   end
+
+  def like
+    new_like = Like.new(:user_id => current_user.id, :post_id => params[:post_id])
+    flash[:alert] = "Something went wrong" if !new_like.save
+    redirect_back(fallback_location: root_path)
+  end
+
+  def new_comment
+    new_comment = Comment.new(:author_id => current_user.id, :post_id => params[:post_id], :content => params[:content])
+    flash[:alert] = "Something went wrong" if !new_comment.save
+    redirect_back(fallback_location: root_path)
+  end
   
   private
 
   def post_params
     params.require(:post).permit(:content)
   end
+
 end
