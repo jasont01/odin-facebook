@@ -3,7 +3,12 @@ class UsersController < ApplicationController
   before_action :is_friend, only: [:show]
 
   def index
-    @users = User.all
+    non_friends = Array.new
+    User.all.each do |user|
+      next if current_user.friends.exists?(user.id) || user.id == current_user.id
+      non_friends << user.id
+    end
+    @users = User.where(id: non_friends)
   end
   
   def show

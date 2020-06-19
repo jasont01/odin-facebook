@@ -1,25 +1,14 @@
-<div class="row">
+<div class="row pt-5">
 
-  <div class="col-3 pt-5">
+  <div class="col-3">
 
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">
-        <%= image_tag(current_user.image, size: '30') %>
-        <%= current_user.name %>
-      </li>
-      <li class="list-group-item active">Home</li>
-      <li class="list-group-item "><%= link_to "Profile", current_user %></li>
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        <%= link_to "Friends", current_user %><span class="badge badge-primary badge-pill"><%= current_user.friends.count %></span>
-      </li>
-      <li class="list-group-item"><%= link_to "Find Friends", users_path %></li>
-    </ul>
+    <%= render partial: 'shared/sidebar_menu', locals: { page: 'posts' } %>
     
   </div>
 
   <div class="col-6 mx-4">
 
-    <section class="p-4">
+    <section class="">
       <%= form_with model: @new_post, mothod: 'POST' do |f| %>
         <%= f.text_area :content, class: 'form-control', placeholder: 'Post something...' %>
         <%= f.submit "Post", class: 'btn btn-primary mt-3' %>
@@ -32,7 +21,7 @@
 
   </div>
 
-  <div class="col pt-5">
+  <div class="col">
 
     <% requests = FriendRequest.where(:user_id => current_user.id) %>
     <% if requests.exists? %>
@@ -62,7 +51,7 @@
         <li class="list-group-item">
           <%= image_tag(suggestion.image, size: '40') %>
           <%= link_to suggestion.name, user_path(suggestion) %>
-          <% if FriendRequest.exists?(:requesting_user_id => current_user.id) %>
+          <% if FriendRequest.exists?(:user_id => suggestion.id, :requesting_user_id => current_user.id) %>
             <button class="btn btn-outline-primary btn-sm disabled mt-1">Request Sent</button>
           <% else %>
             <%= form_with url: 'friend_request', method: 'POST' do |f| %>

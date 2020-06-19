@@ -4,7 +4,7 @@ class FriendsController < ApplicationController
   def new_request
     request = FriendRequest.new(:user_id => params[:user_id], :requesting_user_id => current_user.id)
     request.save ? flash[:notice] = "Friend Request Sent!" : flash[:alert] = "Something went wrong"
-    redirect_to :root
+    redirect_back(fallback_location: root_path)
   end
 
   def accept_request
@@ -15,7 +15,7 @@ class FriendsController < ApplicationController
     else
       flash[:alert] = "Something went wrong"
     end
-    redirect_to :root
+    redirect_back(fallback_location: root_path)
   end
   
 end
