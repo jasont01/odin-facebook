@@ -3,6 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: %i[facebook]
+  after_save :welcome_email
   has_many :posts, foreign_key: 'author_id'
   has_many :friends
   has_many :friend_requests
@@ -18,6 +19,12 @@ class User < ApplicationRecord
       # uncomment the line below to skip the confirmation emails.
       # user.skip_confirmation!
     end
+  end
+
+  private
+
+  def welcome_email
+    WelcomeMailer.welcome_email(self).deliver_now
   end
 
 end

@@ -22,4 +22,3 @@ class UsersController < ApplicationController
 end
 
 #TODO Make friend requests bi-directional
-#TODO 16. Set up a mailer to send a welcome email when a new user signs up. Use the letter_opener gem (see docs here) to test it in development mode.
