@@ -32,6 +32,28 @@
   </div>
 
   <div class="col pt-5">
+
+    <% requests = FriendRequest.where(:user_id => current_user.id) %>
+    <% if requests.exists? %>
+      <h5>Friend Requests:</h5>
+      <% requests.each do |request| %>
+        <% requesting_user = User.find(request.requesting_user_id) %>
+        
+        <ul class="list-group list-group-flush my-4">
+          <li class="list-group-item">
+            <%= image_tag(requesting_user.image, size: '40') %>
+            <%= link_to requesting_user.name, user_path(requesting_user) %>
+
+            <%= form_with url: 'accept_request', method: 'POST' do |f| %>
+              <%= f.hidden_field :requesting_user_id, :value => requesting_user.id %>
+              <%= f.hidden_field :request_id, :value => request.id %>
+              <%= f.submit "Accept Request", class: 'btn btn-primary btn-sm mt-1' %>
+            <% end %>
+          </li>
+        </ul>
+      <% end %>
+    <% end %>
+
     <h5>Suggested Friends:</h5>
 
     <% @suggested_friends.each do |suggestion| %>
@@ -39,7 +61,14 @@
         <li class="list-group-item">
           <%= image_tag(suggestion.image, size: '40') %>
           <%= link_to suggestion.name, user_path(suggestion) %>
-          <%= link_to "Add Friend", nil, class: 'btn btn-primary btn-sm' %>
+          <% if FriendRequest.exists?(:requesting_user_id => current_user.id) %>
+            <button class="btn btn-outline-primary btn-sm disabled mt-1">Request Sent</button>
+          <% else %>
+            <%= form_with url: 'friend_request', method: 'POST' do |f| %>
+              <%= f.hidden_field :user_id, :value => suggestion.id %>
+              <%= f.submit "Add Friend", class: 'btn btn-primary btn-sm mt-1' %>
+            <% end %>
+          <% end %>
         </li>
       </ul>
     <% end %>
