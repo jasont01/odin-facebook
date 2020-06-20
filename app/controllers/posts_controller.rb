@@ -7,7 +7,7 @@ class PostsController < ApplicationController
     current_user.friends.each do |friend|
       author_ids << friend.friend_id
     end
-    @posts = Post.where(author_id: author_ids).order(created_at: :desc)
+    @posts = Post.where(author_id: author_ids).order(created_at: :desc).page(params[:page])
 
     @new_post = Post.new
     @new_comment = Comment.new

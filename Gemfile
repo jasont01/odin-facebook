@@ -70,3 +70,6 @@ gem 'gravatar_image_tag'
 
 # Generate fake info
 gem 'faker', '~> 2.12'
+
+# Pagination
+gem 'kaminari', '~> 1.2', '>= 1.2.1'
