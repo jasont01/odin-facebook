@@ -3,13 +3,14 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: %i[facebook]
-  after_create :welcome_email
+  after_create :welcome_email, unless: :skip_welcome_email
   after_create :create_profile
   has_many :posts, foreign_key: 'author_id'
   has_many :friends
   has_many :friend_requests
   has_one :profile
   accepts_nested_attributes_for :profile
+  attr_accessor :skip_welcome_email
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|

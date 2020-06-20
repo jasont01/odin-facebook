@@ -6,14 +6,15 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-NUM_USERS = 50
+NUM_USERS = 30
 
 NUM_USERS.times do
   #Users
   u = User.create(:name => Faker::Name.name,
                   :email => Faker::Internet.email,
                   :image => Faker::Avatar.image,
-                  :password => Faker::Internet.password)
+                  :password => Faker::Internet.password,
+                  :skip_welcome_email => true)
   #Profiles
   u.profile.update(:birthday => Faker::Date.birthday,
                    :bio => Faker::Lorem.paragraph,
@@ -41,7 +42,7 @@ end
 
 #Likes
 Post.all.each do |post|
-  rand(0..post.author.friends.count).times do
+  rand(0..(post.author.friends.count / 2)).times do
     loop do
       uid = User.all.sample.id
       if !post.likes.exists?(:user_id => uid)
@@ -54,7 +55,7 @@ end
 
 #Comments
 Post.all.each do |post|
-  rand(0..post.author.friends.count).times do
+  rand(0..(post.author.friends.count / 3)).times do
     loop do
       uid = User.all.sample.id
       if !post.comments.exists?(:author_id => uid)
@@ -63,4 +64,16 @@ Post.all.each do |post|
       end
     end
   end
+end
+
+# Demo user - friends with all seeded users
+demo = User.create(:name => "Demo User",
+                   :email => "demo@email.com",
+                   :password => "password",
+                   :skip_welcome_email => true)
+
+User.all.sample(NUM_USERS / 2).each do |user|
+  next if user.id == demo.id
+  user.friends.create(:friend_id => demo.id)
+  demo.friends.create(:friend_id => user.id)
 end
