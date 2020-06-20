@@ -3,16 +3,16 @@
     <div class="card">
       <div class="card-body">
         <h2>Log in</h2>
-
+        <p><mark>Demo Login: demo@email.com / password</mark></p>
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
           <div class="field form-group">
             <%= f.label :email %><br />
-            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control' %>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control', value: 'demo@email.com' %>
           </div>
 
           <div class="field form-group">
             <%= f.label :password %><br />
-            <%= f.password_field :password, autocomplete: "current-password", class: 'form-control' %>
+            <%= f.password_field :password, autocomplete: "current-password", class: 'form-control', value: 'password' %>
           </div>
 
           <% if devise_mapping.rememberable? %>

@@ -8,7 +8,7 @@
 
   <div class="col-6 mx-4">
 
-    <section class="">
+    <section class="mb-4">
       <%= form_with model: @new_post, mothod: 'POST' do |f| %>
         <%= f.text_area :content, class: 'form-control', placeholder: 'Post something...' %>
         <%= f.submit "Post", class: 'btn btn-primary mt-3' %>
