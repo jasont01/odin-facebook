@@ -3,11 +3,13 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: %i[facebook]
-  after_save :welcome_email
+  after_create :welcome_email
+  after_create :create_profile
   has_many :posts, foreign_key: 'author_id'
   has_many :friends
   has_many :friend_requests
   has_one :profile
+  accepts_nested_attributes_for :profile
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
@@ -22,9 +24,15 @@ class User < ApplicationRecord
   end
 
   private
-#FIXME email called on signout
+
   def welcome_email
     WelcomeMailer.welcome_email(self).deliver_now
+  end
+
+  def create_profile
+    @profile = Profile.new
+    @profile.user_id = self.id
+    @profile.save
   end
 
 end

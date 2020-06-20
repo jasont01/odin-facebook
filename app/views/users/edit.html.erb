@@ -1,1 +1,65 @@
-<%#TODO 12. Users can create a Profile with a Photo.%>
+<div class="row pt-5">
+
+  <div class="col-3">
+
+    <%= render partial: 'shared/sidebar_menu', locals: { page: 'profile' } %>
+    
+  </div>
+
+  <div class="col-6">
+
+    <div class="card mb-5">
+      <div class="card-body">
+        <div class="row mb-3">
+          <div class="col-3">
+            <%= image_tag(@user.image, size: '80') %>
+            <button class="btn btn-info btn-sm">change</button>
+          </div>
+          <div class="col">
+            <h2><%= @user.name %></h2>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <h2>Edit Profile</h2>
+
+        <%= form_with model: @user, method: :put do |f| %>
+        <%= f.fields_for :profile do |p| %>
+
+          <div class="field form-group">
+            <%= p.label :birthday %><br />
+            <%= p.date_field :birthday, autocomplete: "birthday", class: "form-control" %>
+          </div>
+
+          <div class="field form-group">
+            <%= p.label :location %><br />
+            <%= p.text_field :location, autocomplete: "location", class: "form-control" %>
+          </div>
+
+          <div class="field form-group">
+            <%= p.label :hometown %><br />
+            <%= p.text_field :hometown, autocomplete: "hometown", class: "form-control" %>
+          </div>
+
+          <div class="field form-group">
+            <%= p.label :relationship_status %><br />
+            <%= p.text_field :relationship_status, autocomplete: "relationship_status", class: "form-control" %>
+          </div>
+
+          <div class="field form-group">
+            <%= p.label :bio %><br />
+            <%= p.text_area :bio, autocomplete: "bio", class: "form-control" %>
+          </div>
+          <% end %>
+          <div class="actions">
+            <%= f.submit "Update Profile", class: "btn btn-success" %>
+            <%= link_to "Back", :back %>
+          </div>
+
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+  
+</div>
