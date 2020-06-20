@@ -24,12 +24,14 @@
         <span style="float: right;"><%= post.comments.count %> Comments</span>
       </small>
     </p>
-    <% if post.likes.find_by(:user_id => current_user.id) %>
-      <button class="btn btn-primary btn-sm"><i class="fas fa-thumbs-up"></i> Liked</button>
-    <% else %>
-      <%= form_with url: '/like', method: 'POST' do |f| %>
-        <%= f.hidden_field :post_id, :value => post.id %>
-        <button type="submit" class="btn btn-outline-primary btn-sm"><i class="fas fa-thumbs-up"> Like</i></button>
+    <% if post.author.id != current_user.id %>
+      <% if post.likes.find_by(:user_id => current_user.id) %>
+        <button class="btn btn-primary btn-sm"><i class="fas fa-thumbs-up"></i> Liked</button>
+      <% else %>
+        <%= form_with url: '/like', method: 'POST' do |f| %>
+          <%= f.hidden_field :post_id, :value => post.id %>
+          <button type="submit" class="btn btn-outline-primary btn-sm"><i class="fas fa-thumbs-up"> Like</i></button>
+        <% end %>
       <% end %>
     <% end %>
   </div>
