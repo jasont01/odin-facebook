@@ -1,0 +1,21 @@
+<div class="row pt-5">
+
+  <div class="col-3">
+
+    <%= render partial: 'shared/sidebar_menu', locals: { page: 'friends' } %>
+    
+  </div>
+
+  <div class="col-5 bg-light">
+    <% @friends.each do |friend| %>
+      <div class="row p-2">
+        <div class="col">
+      
+          <%= image_tag(friend.image, size: '40') %>
+          <%= link_to friend.name, user_path(friend) %>
+
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

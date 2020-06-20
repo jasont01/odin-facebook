@@ -17,8 +17,8 @@ class PostsController < ApplicationController
     current_user.friends.each do |f|
       friend = User.find(f.friend_id)
       friend.friends.each do |fof|
-        next if current_user.friends.exists?(fof.id) || fof.id == current_user.id
-        friends_of_friends << fof.id
+        next if current_user.friends.exists?(:friend_id => fof.friend_id) || FriendRequest.exists?(:user_id => current_user.id, :requesting_user_id => fof.friend_id) || fof.friend_id == current_user.id
+        friends_of_friends << fof.friend_id
       end
     end
     @suggested_friends = User.where(id: friends_of_friends).take(5)

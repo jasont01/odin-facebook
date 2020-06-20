@@ -21,9 +21,18 @@
 
             <button class="btn btn-outline-primary btn-sm disabled mt-1">Request Sent</button>
 
+          <% elsif FriendRequest.exists?(:user_id => current_user.id, :requesting_user_id => user.id) %>
+
+            <% request = FriendRequest.where(:user_id => current_user.id, :requesting_user_id => user.id).last %>
+            <%= form_with url: '/accept_request', method: 'POST' do |f| %>
+              <%= f.hidden_field :requesting_user_id, :value => request.requesting_user_id %>
+              <%= f.hidden_field :request_id, :value => request.id %>
+              <%= f.submit "Accept Request", class: 'btn btn-success mt-1' %>
+            <% end %>
+
           <% else %>
 
-            <%= form_with url: 'friend_request', method: 'POST' do |f| %>
+            <%= form_with url: '/friend_request', method: 'POST' do |f| %>
               <%= f.hidden_field :user_id, :value => user.id %>
               <%= f.submit "Add Friend", class: 'btn btn-primary mt-1' %>
             <% end %>

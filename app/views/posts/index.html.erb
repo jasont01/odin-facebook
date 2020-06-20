@@ -34,7 +34,7 @@
             <%= image_tag(requesting_user.image, size: '40') %>
             <%= link_to requesting_user.name, user_path(requesting_user) %>
 
-            <%= form_with url: 'accept_request', method: 'POST' do |f| %>
+            <%= form_with url: '/accept_request', method: 'POST' do |f| %>
               <%= f.hidden_field :requesting_user_id, :value => requesting_user.id %>
               <%= f.hidden_field :request_id, :value => request.id %>
               <%= f.submit "Accept Request", class: 'btn btn-primary btn-sm mt-1' %>
