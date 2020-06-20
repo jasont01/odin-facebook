@@ -1,14 +1,16 @@
 <li class="list-group-item">
   <div class="row">
-    <div class="col-1">
+    <div class="col-2">
       <%= image_tag(comment.author.image, size: '36') %>
     </div>
-    <div class="col-4">
-      <small><p class="text-muted"><%= link_to comment.author.name, user_path(comment.author) %><br/>
-      <%= distance_of_time_in_words(comment.created_at, Time.now) %> ago</small></p>
-    </div>
     <div class="col">
-      <%= comment.content %>
+      <p>
+        <small>
+          <%= link_to comment.author.name, user_path(comment.author) %>
+          <span class="text-muted"><small><%= distance_of_time_in_words(comment.created_at, Time.now) %> ago</small></span><br>
+          <%= comment.content %>
+        </small>
+      </p>
     </div>
   </div>
 </li>
