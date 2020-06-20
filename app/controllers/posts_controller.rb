@@ -21,7 +21,7 @@ class PostsController < ApplicationController
         friends_of_friends << fof.friend_id
       end
     end
-    @suggested_friends = User.where(id: friends_of_friends).take(5)
+    @suggested_friends = User.where(id: friends_of_friends).sample(5)
   end
 
   def new
