@@ -8,11 +8,22 @@
 
   <div class="col-4 mx-2">
 
-    <section class="mb-4">
+    <section>
       <%= form_with model: @new_post, mothod: 'POST' do |f| %>
+
         <%= f.text_area :content, class: 'form-control border border-primary', placeholder: 'Post something...' %>
-        <%= f.submit "Post", class: 'btn btn-primary mt-3' %>
+
+          <div class="input-group mt-1 mb-5">
+            <div class="custom-file">
+              <%= f.file_field :photo, class: 'custom-file-input' %>
+              <%= f.label "post a picture", class: 'custom-file-label' %>
+            </div>
+            <div class="input-group-append">
+              <%= f.submit "Post", class: 'btn btn-primary' %>
+            </div>
+          </div>
       <% end %>
+      
     </section>
 
     <section>

@@ -15,9 +15,14 @@
       </div>
     </div>
 
+    <% if post.photo.attached? %>
+      <%= image_tag post.photo, style: 'max-width:100%;' %>
+    <% end %>
+
     <p class="card-text">
       <%= post.content %>
     </p>
+
     <p class="text-muted">
       <small>
         <span><i class="far fa-thumbs-up"></i> <%= post.likes.count %></span>
