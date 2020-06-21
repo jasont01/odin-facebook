@@ -1,20 +1,23 @@
 <div class="row d-flex justify-content-center pt-5">
 
-  <div class="col-3">
+  <div class="col-2">
 
     <%= render partial: 'shared/sidebar_menu', locals: { page: 'profile' } %>
     
   </div>
 
-  <div class="col-6">
+  <div class="col-4">
 
     <div class="card mb-5">
       <div class="card-body">
         <div class="row mb-3">
           <div class="col-3">
-            <%= image_tag(@user.image, size: '80') %>
-            <%#TODO change profile picture%>
-            <button class="btn btn-info btn-sm">change</button>
+            <% if @user.profile.photo.attached? %>
+              <%= image_tag(@user.profile.photo, size: '80') %>
+            <% else %>
+              <%= image_tag(@user.image, size: '80') %>
+            <% end %>
+            <%= link_to "change", edit_profile_photo_path, class: 'btn btn-info btn-sm ml-2' %>
           </div>
           <div class="col">
             <h2><%= @user.name %></h2>
@@ -62,5 +65,7 @@
     </div>
 
   </div>
+
+  <div class="col-3"></div>
   
 </div>

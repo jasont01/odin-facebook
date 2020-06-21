@@ -17,14 +17,15 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
-    if Profile.exists?(:user_id => params[:id])
-      @profile = Profile.where(:user_id => params[:id]).last
-    else
-      @profile = Profile.new
-    end
+    @user = User.find(current_user.id)
+    @profile = Profile.where(:user_id => params[:id]).last
   end
   
+  def edit_profile_photo
+    @user = User.find(current_user.id)
+    @profile = Profile.where(:user_id => params[:id]).last
+  end
+
   def update
     @user = User.find(params[:id])
     if @user.update(profile_params)
@@ -46,7 +47,7 @@ class UsersController < ApplicationController
   end
 
   def profile_params
-    params.require(:user).permit(profile_attributes: [:id, :birthday, :location, :hometown, :relationship_status, :bio])
+    params.require(:user).permit(profile_attributes: [:id, :birthday, :location, :hometown, :relationship_status, :bio, :photo])
   end
   
 end

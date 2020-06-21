@@ -8,45 +8,52 @@
 
   <div class="col-4">
 
-
-    <div class="row mb-5">
-      <div class="col-3">
-        <%= image_tag(@user.image, size: '80') %>
-      </div>
-      <div class="col-9">
-        <h2><%= @user.name %></h2>
-        <p><%= @user.email %></p>
-        <%= link_to "Change Email/Password", edit_registration_path(@user), class: 'btn btn-info btn-sm' %>
+    <div class="card mb-5">
+      <div class="card-body">
+        <div class="row mb-5">
+          <div class="col-3">
+            <% if @user.profile.photo.attached? %>
+              <%= image_tag(@user.profile.photo, size: '80') %>
+            <% else %>
+              <%= image_tag(@user.image, size: '80') %>
+            <% end %>
+          </div>
+          <div class="col-9">
+            <h2><%= @user.name %></h2>
+            <p><%= @user.email %></p>
+            <%= link_to "Change Email/Password", edit_registration_path(@user), class: 'btn btn-info btn-sm' %>
+          </div>
+        </div>
+        
+        <h2>Profile</h2>
+        
+        <table class="table table-borderless">
+          <tbody>
+            <tr>
+              <td class="profile_tag">Birthday:</td>
+              <td><%= @user.profile.birthday %></td>
+            </tr>
+            <tr>
+              <td class="profile_tag">Location:</td>
+              <td><%= @user.profile.location %></td>
+            </tr>
+            <tr>
+              <td class="profile_tag">Hometown:</td>
+              <td><%= @user.profile.hometown %></td>
+            </tr>
+            <tr>
+              <td class="profile_tag">Relationship<br>Status:</td>
+              <td><%= @user.profile.relationship_status %></td>
+            </tr>
+            <tr>
+              <td class="profile_tag">Bio:</td>
+              <td><%= @user.profile.bio %></td>
+            </tr>
+          </tbody>
+        </table>
+        <%= link_to "Edit Profile", edit_user_path(@user), class: 'btn btn-info btn-sm' %>
       </div>
     </div>
-    
-    <h2>Profile</h2>
-     
-    <table class="table table-borderless">
-      <tbody>
-        <tr>
-          <td class="profile_tag">Birthday:</td>
-          <td><%= @user.profile.birthday %></td>
-        </tr>
-        <tr>
-          <td class="profile_tag">Location:</td>
-          <td><%= @user.profile.location %></td>
-        </tr>
-        <tr>
-          <td class="profile_tag">Hometown:</td>
-          <td><%= @user.profile.hometown %></td>
-        </tr>
-        <tr>
-          <td class="profile_tag">Relationship<br>Status:</td>
-          <td><%= @user.profile.relationship_status %></td>
-        </tr>
-        <tr>
-          <td class="profile_tag">Bio:</td>
-          <td><%= @user.profile.bio %></td>
-        </tr>
-      </tbody>
-    </table>
-        <%= link_to "Edit Profile", edit_user_path(@user), class: 'btn btn-info btn-sm' %>
 
   </div>
 

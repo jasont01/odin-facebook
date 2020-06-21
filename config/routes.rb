@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :posts
   resources :users
   resources :friends
+  get 'edit_profile_photo', to: 'users#edit_profile_photo'
   post 'friend_request', to: 'friends#new_request'
   post 'accept_request', to: 'friends#accept_request'
   post 'like', to: 'posts#like'

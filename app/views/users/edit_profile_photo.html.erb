@@ -1,0 +1,51 @@
+<div class="row d-flex justify-content-center pt-5">
+
+  <div class="col-2">
+
+    <%= render partial: 'shared/sidebar_menu', locals: { page: 'profile' } %>
+    
+  </div>
+
+  <div class="col-4">
+
+    <div class="card mb-5">
+      
+      <div class="card-body">
+        <div class="row mb-3">
+          <div class="col-3">
+            <% if @user.profile.photo.attached? %>
+              <%= image_tag(@user.profile.photo, size: '130') %>
+            <% else %>
+              <%= image_tag(@user.image, size: '130') %>
+            <% end %>
+            
+          </div>
+          <div class="col">
+            <h2>Edit Profile Picture</h2>
+
+            <%= form_with model: @user, method: :put do |f| %>
+              <%= f.fields_for :profile do |p| %>
+
+                <div class="input-group mt-1 mb-5">
+                  <div class="custom-file">
+                    <%= p.file_field :photo, class: 'custom-file-input' %>
+                    <%= p.label "choose a picture", class: 'custom-file-label' %>
+                  </div>
+                  <div class="input-group-append">
+                    <%= f.submit "Upload", class: 'btn btn-success' %>
+                    <%= link_to "Cancel", :back, class: 'btn btn-warning' %>
+                  </div>
+                </div>
+                
+              <% end %>
+            <% end %>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  
+</div>
