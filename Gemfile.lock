@@ -105,6 +105,7 @@ GEM
       concurrent-ruby (~> 1.0)
     jbuilder (2.10.0)
       activesupport (>= 5.0.0)
+    json (2.3.0)
     jwt (2.2.1)
     kaminari (1.2.1)
       activesupport (>= 4.1.0)
@@ -225,6 +226,8 @@ GEM
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
+    sendgrid (1.2.4)
+      json
     spring (2.1.0)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
@@ -289,6 +292,7 @@ DEPENDENCIES
   rails-erd
   sass-rails (>= 6)
   selenium-webdriver
+  sendgrid (~> 1.2, >= 1.2.4)
   spring
   spring-watcher-listen (~> 2.0.0)
   turbolinks (~> 5)

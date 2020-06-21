@@ -1,5 +1,6 @@
 class WelcomeMailer < ApplicationMailer
   default from: 'fauxbook@odin-fauxbook.herokuapp.com'
+  include SendGrid
 
   def welcome_email(user)
     @user = user

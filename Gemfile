@@ -73,3 +73,6 @@ gem 'faker', '~> 2.12'
 
 # Pagination
 gem 'kaminari', '~> 1.2', '>= 1.2.1'
+
+# SendGrid emails
+gem 'sendgrid', '~> 1.2', '>= 1.2.4'

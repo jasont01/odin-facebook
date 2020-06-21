@@ -110,6 +110,17 @@ Rails.application.configure do
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 
-  # Devise default URL
-  #config.action_mailer.default_url_options = { host: 'odin-fauxbook.herokuapp.com/', port: 465 }
+  config.action_mailer.default_url_options = { host: 'odin-fauxbook.herokuapp.com' }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.smtp_settings = {
+    address:              'smtp.sendgrid.net',
+    port:                 465,
+    domain:               'odin-fauxbook.herokuapp.com',
+    user_name:            ENV['SENDGRID_USERNAME'],
+    api_key:              ENV['SENDGRID_API_KEY'],
+    authentication:       'plain',
+    enable_starttls_auto: true
+  }
+
 end
