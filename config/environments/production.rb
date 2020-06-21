@@ -118,6 +118,7 @@ Rails.application.configure do
     port:                 587,
     domain:               'odin-fauxbook.herokuapp.com',
     user_name:            ENV['SENDGRID_USERNAME'],
+    password:             ENV['SENDGRID_PASSWORD'],
     api_key:              ENV['SENDGRID_API_KEY'],
     authentication:       'plain',
     enable_starttls_auto: true
