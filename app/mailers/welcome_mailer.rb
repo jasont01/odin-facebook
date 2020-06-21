@@ -1,5 +1,5 @@
 class WelcomeMailer < ApplicationMailer
-  default from: 'fauxbook@email.com'
+  default from: 'fauxbook@odin-fauxbook.herokuapp.com'
 
   def welcome_email(user)
     @user = user
