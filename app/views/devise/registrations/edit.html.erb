@@ -12,7 +12,7 @@
       <div class="card-body">
         <div class="row mb-3">
           <div class="col-3">
-            <%= image_tag(@user.image, size: '80') %>
+            <%= render partial: 'shared/profile_image', object: @user, as: 'user' %>
             
           </div>
           <div class="col">

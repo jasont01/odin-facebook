@@ -6,7 +6,7 @@
       <%= render partial: 'shared/sidebar_menu', locals: { page: 'profile' } %>
     <% else %>
       <%= render partial: 'shared/sidebar_menu' %>
-    <% end %>    
+    <% end %>
   </div>
 
   <div class="col-4">
@@ -15,11 +15,7 @@
       <div class="card-body">
         <div class="row mb-5">
           <div class="col-3">
-            <% if @user.profile.photo.attached? %>
-              <%= image_tag(@user.profile.photo, size: '80') %>
-            <% else %>
-              <%= image_tag(@user.image, size: '80') %>
-            <% end %>
+            <%= render partial: 'shared/profile_image', object: @user, as: 'user' %>
           </div>
           <div class="col-9">
             <h2><%= @user.name %></h2>
@@ -56,6 +52,7 @@
             </tr>
           </tbody>
         </table>
+
         <% if @user.id == current_user.id %>
           <%= link_to "Edit Profile", edit_user_path(@user), class: 'btn btn-info btn-sm' %>
         <% end %>

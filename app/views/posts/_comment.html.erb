@@ -1,7 +1,7 @@
 <li class="list-group-item">
   <div class="row">
     <div class="col-2">
-      <%= image_tag(comment.author.image, size: '36') %>
+      <%= render partial: 'shared/profile_image', object: comment.author, as: 'user' %>
     </div>
     <div class="col">
       <p>

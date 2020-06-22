@@ -1,0 +1,5 @@
+<% if user.profile.photo.attached? %>
+  <%= image_tag(user.profile.photo, class: 'profile-pic' ) %>
+<% else %>
+  <%= image_tag(user.image, class: 'profile-pic' ) %>
+<% end %>

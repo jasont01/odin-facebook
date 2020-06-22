@@ -1,7 +1,13 @@
 <ul class="list-group list-group-flush">
   <li class="list-group-item">
-    <%= image_tag(current_user.image, size: '30') %>
-    <%= current_user.name %>
+    <div class="row">
+      <div class="col-sm-4">
+        <%= render partial: 'shared/profile_image', object: current_user, as: 'user' %>
+      </div>
+      <div class="col">
+        <h5><%= current_user.name %></h5>
+      </div>
+    </div>
   </li>
 
   <% if local_assigns[:page] == "posts" %>

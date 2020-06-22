@@ -12,12 +12,8 @@
       <div class="card-body">
         <div class="row mb-3">
           <div class="col-3">
-            <% if @user.profile.photo.attached? %>
-              <%= image_tag(@user.profile.photo, size: '80') %>
-            <% else %>
-              <%= image_tag(@user.image, size: '80') %>
-            <% end %>
-            <%= link_to "change", edit_profile_photo_path, class: 'btn btn-info btn-sm ml-2' %>
+            <%= render partial: 'shared/profile_image', object: @user, as: 'user' %>
+            <%= link_to "change", edit_profile_image_path, class: 'btn btn-info btn-sm' %>
           </div>
           <div class="col">
             <h2><%= @user.name %></h2>
