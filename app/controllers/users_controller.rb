@@ -21,7 +21,7 @@ class UsersController < ApplicationController
     @profile = Profile.where(:user_id => params[:id]).last
   end
   
-  def edit_profile_photo
+  def edit_profile_image
     @user = User.find(current_user.id)
     @profile = Profile.where(:user_id => params[:id]).last
   end
@@ -51,3 +51,5 @@ class UsersController < ApplicationController
   end
   
 end
+
+#TODO Signin UX

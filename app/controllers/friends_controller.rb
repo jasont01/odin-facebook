@@ -26,5 +26,12 @@ class FriendsController < ApplicationController
     end
     redirect_back(fallback_location: root_path)
   end
+
+  def ignore_request
+    request = FriendRequest.find(params[:request_id])
+    request.ignore = true
+    request.save
+    redirect_back(fallback_location: root_path)
+  end
   
 end

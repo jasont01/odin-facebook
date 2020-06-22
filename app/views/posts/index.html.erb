@@ -9,6 +9,7 @@
   <div class="col-4 mx-2">
 
     <section>
+
       <%= form_with model: @new_post, mothod: 'POST' do |f| %>
 
         <%= f.text_area :content, class: 'form-control border border-primary', placeholder: 'Post something...' %>
@@ -33,45 +34,46 @@
 
   <div class="col-2">
 
-    <% requests = FriendRequest.where(:user_id => current_user.id) %>
+    <% requests = FriendRequest.where(:user_id => current_user.id, :ignore => false) %>
     <% if requests.exists? %>
       <h5>Friend Requests:</h5>
-      <% requests.each do |request| %>
-        <% requesting_user = User.find(request.requesting_user_id) %>
-        
-        <ul class="list-group list-group-flush my-4">
+      <ul class="list-group list-group-flush my-4">
+        <% requests.each do |request| %>
+          
           <li class="list-group-item">
-            <%= image_tag(requesting_user.image, size: '40') %>
-            <%= link_to requesting_user.name, user_path(requesting_user) %>
-
-            <%= form_with url: '/accept_request', method: 'POST' do |f| %>
-              <%= f.hidden_field :requesting_user_id, :value => requesting_user.id %>
-              <%= f.hidden_field :request_id, :value => request.id %>
-              <%= f.submit "Accept Request", class: 'btn btn-primary btn-sm mt-1' %>
-            <% end %>
+            <%= render partial: "friends/request", object: request %>
           </li>
-        </ul>
-      <% end %>
-    <% end %>
 
-    <h5>Suggested Friends:</h5>
-
-    <% @suggested_friends.each do |suggestion| %>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">
-          <%= image_tag(suggestion.image, size: '40') %>
-          <%= link_to suggestion.name, user_path(suggestion) %>
-          <% if FriendRequest.exists?(:user_id => suggestion.id, :requesting_user_id => current_user.id) %>
-            <button class="btn btn-outline-primary btn-sm disabled mt-1">Request Sent</button>
-          <% else %>
-            <%= form_with url: 'friend_request', method: 'POST' do |f| %>
-              <%= f.hidden_field :user_id, :value => suggestion.id %>
-              <%= f.submit "Add Friend", class: 'btn btn-primary btn-sm mt-1' %>
-            <% end %>
-          <% end %>
-        </li>
+        <% end %>
       </ul>
     <% end %>
+
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">People you may know:</h5>
+        <% @suggested_friends.each do |suggestion| %>
+          
+            <div class="row mt-3">
+              <div class="col-sm-3">
+                <%= render partial: 'shared/profile_image', object: suggestion, as: 'user' %>
+                  </div>
+                  <div class="col">
+                <%= link_to suggestion.name, user_path(suggestion) %>
+                <% if FriendRequest.exists?(:user_id => suggestion.id, :requesting_user_id => current_user.id) %>
+                  <button class="btn btn-outline-primary btn-sm disabled mt-1">Request Sent</button>
+                <% else %>
+                  <%= form_with url: 'friend_request', method: 'POST' do |f| %>
+                    <%= f.hidden_field :user_id, :value => suggestion.id %>
+                    <%= f.submit "Add Friend", class: 'btn btn-primary btn-sm mt-1' %>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          
+        <% end %>
+      </div>
+    </div>
+    
   </div>
 
 </div>

@@ -14,7 +14,7 @@
 
     <div class="page-container">
       <div class="content-wrap">
-      
+
         <!-- navbar -->
         <nav class="navbar navbar-expand-md navbar-dark bg-dark justify-content-between mb-4">
           
@@ -24,53 +24,41 @@
 
           <span class="mr-5">
 
-            <!--Notifications-->
-            
-            <% requests = FriendRequest.where(:user_id => current_user.id) %>
-            <% if requests.exists? %>
-      
-              <span class="dropdown">
-                <button class="btn btn-primary dropdown-toggle btn-sm mr-2" type="button" id="dropdownMenuButton" data-toggle="dropdown">
-                  <i class="far fa-bell"></i>
-                </button>
-                <div class="dropdown-menu dropdown-menu-right">
-
-                  <% requests.each do |request| %>
-
-                    <% requesting_user = User.find(request.requesting_user_id) %>
-
-                    <div class="p-3">
-
-                      <h5>Friend Request:</h5>
-                      
-                      <%= image_tag(requesting_user.image, size: '40') %>
-                      <%= link_to requesting_user.name, user_path(requesting_user) %>
-                      
-                      <%= form_with url: '/accept_request', method: 'POST' do |f| %>
-                        <%= f.hidden_field :requesting_user_id, :value => requesting_user.id %>
-                        <%= f.hidden_field :request_id, :value => request.id %>
-                        <%= f.submit "Accept Request", class: 'btn btn-primary btn-sm mt-1' %>
-                      <% end %>
-
-                    </div>
-
-                  <% end %>
-              
-                </div>
-              </span>
-
-            <% else %>
-
-              <span class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle btn-sm mr-2 disabled">
-                  <i class="far fa-bell"></i>
-                </button>
-              </span>
-
-            <% end %>
-
-            <!--Session Buttons-->
             <% if user_signed_in? %>
+              <!--Notifications-->
+              <% requests = FriendRequest.where(:user_id => current_user.id, :ignore => false) %>
+              <% if requests.exists? %>
+        
+                <span class="dropdown">
+                  <button class="btn btn-warning dropdown-toggle btn-sm mr-2" type="button" id="dropdownMenuButton" data-toggle="dropdown">
+                    <i class="far fa-bell"></i>
+                  </button>
+                  <div class="dropdown-menu dropdown-menu-right">
+
+                    <% requests.each do |request| %>
+
+                      <div class="p-3">
+
+                        <h5>Friend Request:</h5>
+                        <%= render partial: "friends/request", object: request %>
+                      </div>
+
+                    <% end %>
+                
+                  </div>
+                </span>
+
+              <% else %>
+
+                <span class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle btn-sm mr-2 disabled">
+                    <i class="far fa-bell"></i>
+                  </button>
+                </span>
+
+              <% end %>
+
+              <!--Session Buttons-->
               <%= link_to "Home", root_path, class: "btn btn-primary mr-2 btn-sm" %>
               <%= link_to current_user.name, user_path(current_user), class: "btn btn-primary mr-2 btn-sm" %>
               <%= link_to "Logout", destroy_user_session_path,method: :delete, class: "btn btn-secondary btn-sm" %>
@@ -92,11 +80,13 @@
 
               <% if flash[:notice] %>
                 <div class="alert alert-success">
+                <button class="close" data-dismiss="alert"><span>&times;</span></button>
                   <%= notice %>
                 </div>
               <% end %>
               <% if flash[:alert] %>
                 <div class="alert alert-warning">
+                 <button class="close" data-dismiss="alert"><span>&times;</span></button>
                   <%= alert %>
                 </div>
               <% end %>
@@ -119,6 +109,3 @@
 
   </body>
 </html>
-<%#FIXME Profile Pics%>
-<%#TODO Partials?%>
-<%#TODO close box for alerts? timeout w/ js? %>

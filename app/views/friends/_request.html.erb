@@ -1,0 +1,21 @@
+<% requesting_user = User.find(request.requesting_user_id) %>
+
+<div class="row">
+  <div class="col-sm-4">
+    <%= render partial: 'shared/profile_image', object: requesting_user, as: 'user' %>
+  </div>
+  <div class="col">
+    <%= link_to requesting_user.name, user_path(requesting_user) %>
+
+    <%= form_with url: '/accept_request', method: 'POST' do |f| %>
+      <%= f.hidden_field :requesting_user_id, :value => requesting_user.id %>
+      <%= f.hidden_field :request_id, :value => request.id %>
+      <%= f.submit "Accept", class: 'btn btn-success btn-sm mt-1 float-left' %>
+    <% end %>
+    <%= form_with url: '/ignore_request', method: 'POST' do |f| %>
+      <%= f.hidden_field :request_id, :value => request.id %>
+      <%= f.submit "Ignore", class: 'btn btn-danger btn-sm mt-1 ml-1 float-left' %>
+    <% end %>
+
+  </div>
+</div>
