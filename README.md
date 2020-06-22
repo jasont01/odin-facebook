@@ -27,6 +27,7 @@ A link to the full description of the assignment can be found above.
 * <a href="https://rubygems.org/gems/bootstrap">Bootstrap</a> - CSS framwork
 * <a href="https://rubygems.org/gems/devise">Devise</a> - Authentication
 * <a href="https://rubygems.org/gems/faker">Faker</a> - Generate fake data
+* 
 
 ## Model Relationship Diagram
 

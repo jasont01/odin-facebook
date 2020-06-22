@@ -51,5 +51,3 @@ class UsersController < ApplicationController
   end
   
 end
-
-#TODO Signin UX
